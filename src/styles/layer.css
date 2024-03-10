@@ -1,0 +1,79 @@
+.layer {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	margin: 0 auto;
+	box-shadow: -2px 2px 2px rgba(0, 0, 0, .1);
+	transition: all 1s ease;
+	border-radius: 8px 8px 0 0;
+	z-index: auto;
+}
+
+.layer-drop {
+	position: absolute;
+	border: 1px solid red;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	width: 50vw;
+	transform: translateX(-100%);
+	background: #000;
+	z-index: 1;
+	opacity: 0;
+}
+
+.layer-content {
+	position: absolute;
+	top: calc(max(10%, 120px));
+	left: 32px;
+	right: 32px;
+	bottom: 8px;
+	overflow-x: hidden;
+	overflow-y: auto;
+	display: flex;
+	flex-flow: column wrap;
+	place-content: flex-start;
+	align-content: center;
+}
+
+.layer {
+	opacity: 0;
+	animation-name: layer-appear;
+	animation-duration: .5s;
+	animation-fill-mode: forwards;
+}
+
+.layer:before {
+	content: '';
+	display: block;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translateX(-50%) translateY(-50%);
+	height: 100%;
+	width: 100%;
+	background: rgba(0, 0, 0, .02);
+	-webkit-mask: url(onion.svg) no-repeat center;
+	mask: url(onion.svg) no-repeat center;
+	mask-size: 100%;
+	z-index: -1;
+	pointer-events: none;
+}
+
+@keyframes layer-appear {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+.layer-header {
+	height: 48px;
+	padding: 16px 0;
+	display: flex;
+	align-content: center;
+	align-items: center;
+	background: rgba(0, 0, 0, .05);
+}

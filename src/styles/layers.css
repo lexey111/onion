@@ -1,0 +1,97 @@
+.layers {
+	position: relative;
+	display: flex;
+	flex-flow: column wrap;
+	flex-grow: 2;
+	width: 80%;
+	max-width: 1200px;
+	min-width: 300px;
+	transition: all 1s ease;
+	z-index: 1;
+	margin: 0 auto;
+}
+
+/* levels */
+
+.layers.level-1 {
+	transform: none;
+}
+
+.layers.level-2 {
+	transform: translateX(20px);
+}
+
+.layers.level-3 {
+	transform: translateX(80px);
+}
+
+.layers.level-4 {
+	transform: translateX(120px);
+}
+
+/* Y 1 */
+.layers.level-1 .layer-0 {
+	transform: none;
+}
+
+/*Y 2*/
+.layers.level-2 .layer-0 {
+	transform: translateY(40px) translateX(-80px);
+}
+
+.layers.level-2 .layer-1 {
+	transform: translateY(0) translateX(0);
+}
+
+/*Y 3*/
+.layers.level-3 .layer-0 {
+	transform: translateY(80px) translateX(-150px);
+}
+
+.layers.level-3 .layer-1 {
+	transform: translateY(40px) translateX(-80px);
+}
+
+.layers.level-3 .layer-2 {
+	transform: translateY(0) translateX(0);
+}
+
+/*Y 4*/
+.layers.level-4 .layer-0 {
+	transform: translateY(120px) translateX(-180px);
+}
+
+.layers.level-4 .layer-1 {
+	transform: translateY(80px) translateX(-120px);
+}
+
+.layers.level-4 .layer-2 {
+	transform: translateY(40px) translateX(-80px);
+}
+
+.layers.level-4 .layer-3 {
+	transform: translateY(0) translateX(0);
+}
+
+/* layers */
+.layer-0 {
+	z-index: 1;
+	transform: translateX(0);
+	background: rgba(255, 255, 255, .2);
+	backdrop-filter: blur(4px);
+}
+
+.layer-1 {
+	z-index: 2;
+	background: #c3fff6;
+}
+
+.layer-2 {
+	z-index: 3;
+	background: #dbffc3;
+}
+
+.layer-3 {
+	z-index: 4;
+	background: #ffe4a3;
+}

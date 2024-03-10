@@ -1,0 +1,19 @@
+.app-header {
+	z-index: 2;
+	color: #fff;
+	display: flex;
+	flex-flow: row nowrap;
+	align-items: center;
+	align-content: center;
+	justify-content: center;
+	margin-right: 32px;
+}
+
+.app-header-logo {
+	width: 40px;
+	height: 40px;
+	margin-right: 8px;
+	background-color: #fff;
+	-webkit-mask: url(onion.svg) no-repeat center;
+	mask: url(onion.svg) no-repeat center;
+}
