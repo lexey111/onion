@@ -1,12 +1,14 @@
-import {getCustomer} from "../subsystems/customers/queries/get-customer-query.ts";
-import {queryClient} from "../db/query-client.ts";
-import {getSupabaseClient} from "../db/db.ts";
-import {CustomersState} from "../store/customers-state.ts";
-import {CustomerDetailed} from "./customers-types.ts";
-import {updateCustomer} from "../subsystems/customers/queries/update-customer.ts";
-import {toast} from "react-toastify";
-import {deleteCustomer} from "../subsystems/customers/queries/delete-customer.ts";
-import {customersKey} from "../subsystems/customers/hooks/useCustomers.tsx";
+import {getCustomer} from "../subsystems/customers/queries/get-customer-query.ts"
+import {queryClient} from "../db/query-client.ts"
+import {getSupabaseClient} from "../db/db.ts"
+import {CustomersState} from "../store/customers-state.ts"
+import {CustomerDetailed} from "./customers-types.ts"
+import {updateCustomer} from "../subsystems/customers/queries/update-customer.ts"
+import {toast} from "react-toastify"
+import {deleteCustomer} from "../subsystems/customers/queries/delete-customer.ts"
+import {customersKey} from "../subsystems/customers/hooks/useCustomers.tsx"
+import {subscribe} from "./subscribe-service.ts"
+import {globalState} from "../store/global-state.ts";
 
 export class CustomersDataService {
 	protected client
@@ -18,6 +20,8 @@ export class CustomersDataService {
 	constructor(state: CustomersState) {
 		this.client = queryClient
 		this.state = state
+
+		subscribe('customers.refresh', this.checkState)
 	}
 
 	createQuery(id: string) {
@@ -72,6 +76,20 @@ export class CustomersDataService {
 		} catch (e) {
 			console.log(e)
 			toast.error('Error on deleting customer')
+		}
+	}
+
+	protected checkState = () => {
+		console.log('Received Refresh event, checking the state...')
+		if (this.state.currentCustomerId && this.state.currentCustomerId !== 'new') {
+			// check is the id still exists
+			const current = this.state.customers.find(c => c.id.toString() === this.state.currentCustomerId)
+			if (!current) {
+				toast.error('Customer was deleted')
+				// bad practice, should be an API or eventß
+				globalState.navigationService.resetHasChanges()
+				this.state.setCurrentCustomer('')
+			}
 		}
 	}
 }

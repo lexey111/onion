@@ -7,6 +7,7 @@ import {supabase} from "../../../db/db.ts"
 import {queryClient} from "../../../db/query-client.ts"
 import {toast} from "react-toastify"
 import {CustomersState} from "../../../store/customers-state.ts"
+import {publish} from "../../../services/subscribe-service.ts"
 
 export const customersKey = ['customers']
 
@@ -22,6 +23,7 @@ export const useCustomers = (state: CustomersState) => {
 				(result: any) => {
 					state.setFetching(false)
 					state.setCustomers(result?.data || [])
+					publish('customers.refresh')
 
 					return result?.data || []
 				}
